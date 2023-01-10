@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Lista categorii";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />  
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+
+<br />
+
+@foreach (var category in ViewBag.Categories)
+{
+    <p>@category.Category_Name</p>
+    <a class="btn alert-success" href="/Groups/Index/@category.CategoryId">Groups</a>
+    @if (User.IsInRole("Admin"))
+
+    {
+         <form method="post" action="/Categories/Delete/@category.CategoryId">
+
+                       <button class="btn alert-danger" type="submit"><i class="bi bi-trash"></i>Delete</button>
+
+                 </form>
+
+             <a class="btn alert-warning" href="/Categories/Edit/@category.CategoryId"><i class="bi bi-trash"></i>Edit</a>
+
+    }
+    <br />
+    <hr />
+    <br />
+}
+<br />
+@if (User.IsInRole("Admin"))
+{
+    <a class="btn btn-success" href="/Categories/New">New Category</a>
+}
+<br />

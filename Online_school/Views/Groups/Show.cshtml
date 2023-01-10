@@ -1,0 +1,103 @@
+﻿
+
+<h1>@Model.Group_Name</h1>
+<h4>@Model.Description</h4>
+
+
+@foreach (var mes in Model.Messages)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <div class="col-md-8">
+                @if (mes.UserId == ViewBag.UserCurent)
+                {
+                    <div class="bg-success text-white rounded-2"  style="width:250px;float:right">
+
+                    <p style="margin-left:0.25cm">@mes.Content</p>
+                    <small style="margin-left:0.25cm">@mes.Date</small>
+
+                    <strong style="margin-left:0.25cm"><i class="bi bi-person"></i>@mes.User.UserName</strong>
+
+
+
+                    </div>
+                }
+                else{
+                     <div class="bg-secondary text-white rounded-2" style="width:250px">
+
+                    <p style="margin-left:0.25cm">@mes.Content</p>
+                    <small style="margin-left:0.25cm">@mes.Date</small>
+
+                    <strong style="margin-left:0.25cm"><i class="bi bi-person"></i>@mes.User.UserName</strong>
+
+                    </div>
+                }
+                
+                
+                @if (mes.UserId == ViewBag.UserCurent||ViewBag.EsteAdmin)
+                {   <br><br><br><br>
+                    <div class="d-flex flex-row-reverse">
+
+                        <div>
+
+                            <a class="btn btn-outline-primary" href="/Messages/Edit/@mes.MessageId"><i class="bi bi-pencil-square"></i>Edit</a>
+
+                        </div>
+
+                        <div>
+
+                            <form method="post" action="/Messages/Delete/@mes.MessageId">
+
+                                <button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash"></i>Delete</button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                }
+
+                <br />
+
+            </div>
+
+            <div class="col-md-2"></div>
+
+        </div>
+         
+
+    </div>
+}
+
+<a class="btn btn-outline-primary" href="/Lists/Show/@Model.GroupId"><i class="bi bi-pencil-square"></i>Members</a>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-2"></div>
+
+        <div class="col-md-8">
+
+            <div class="card">
+                
+                <form method="post" action="/Groups/Show/@Model.GroupId">
+
+                    <div class="card-body">
+
+                        <input type="hidden" name="GroupId" value="@Model.GroupId" />
+
+                        <textarea class="form-control" name="Content"></textarea>
+
+                        @Html.ValidationMessage("Content", null, new { @class = "text-danger"})
+
+                        <br /><br />
+
+                        <button class="btn btn-success " type="submit">Send</button>
+
+                    </div>
+               </form>
+    </div>

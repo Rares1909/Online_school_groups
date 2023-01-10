@@ -1,0 +1,29 @@
+﻿@foreach(var it in ViewBag.list){
+
+   <ul style="flex-wrap: wrap">
+  <li style="display: flex">@it.User.UserName</li>
+  @if((ViewBag.moderator||User.IsInRole("Admin"))&&ViewData[it.UserId]==false){
+	   <form method="post" action="/Lists/MakeEditor/?Userid=@it.UserId&Groupid=@it.GroupId">
+			<button class="btn btn-outline-primary" type="submit"><i class="bi bi-trash"></i>Make editor</button>
+	   </form>
+		}
+		else
+		{
+			if (ViewData[it.UserId])
+			{
+				<li style="display: flex">Editor</li>
+			}
+		}
+@if((ViewBag.moderator||User.IsInRole("Admin"))&&ViewBag.eu!=it.UserId)
+{<form method="post" action="/Lists/Kick/?Userid=@it.UserId&Groupid=@it.GroupId">
+			<button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash"></i>Kick</button>
+	   </form>}
+@if(User.IsInRole("Admin")&&ViewData[it.UserId]){
+	<form method="post" action="/Lists/make_user/?Userid=@it.UserId&Groupid=@it.GroupId">
+			<button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash"></i>make user</button>
+	   </form>
+
+}
+
+
+</ul>}

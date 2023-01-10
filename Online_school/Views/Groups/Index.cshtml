@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Groups</h2>
+<br />
+
+
+<br />
+
+<style>
+.buttons{
+    display:flex;
+    gap:0.5cm;
+    flex-direcion: row;
+
+}    
+</style>
+
+<form method="GET">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search descriptions or titles" name="search"
+               value="@ViewBag.SearchString">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </div>
+</form>
+
+@foreach (var grup in ViewBag.Groups)
+{
+    <div class="card">
+
+        <div class="card-body">
+
+            <h3 class="card-title alert-success py-3 px-3 rounded-2">@grup.Group_Name</h3>
+
+            <div class="card-text">@grup.Created</div>
+
+            <div class="card-text">Category: @grup.Category.Category_Name</div>
+
+            <div class="card-text">@grup.Description</div>
+            
+            <div class="buttons">
+                @if(ViewData[grup.GroupId.ToString()]==1)
+                {
+                    <a class="btn btn-success" href="/Groups/Show/@grup.GroupId">Join</a>   
+                }
+                @if(ViewData[grup.GroupId.ToString()]==2)
+                {
+                    <a class="btn btn-primary" href="/Groups/Show/@grup.GroupId">Show</a>
+                    <form method="post" action="/Groups/Leave/@grup.GroupId">
+
+                       <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i>Leave</button>
+
+                    </form>
+
+                }    
+                @if (ViewData[grup.GroupId.ToString()] == 3)
+                {
+                    <a class="btn btn-primary" href="/Groups/Show/@grup.GroupId">Show</a>
+                    <form method="post" action="/Groups/Delete/@grup.GroupId">
+
+                       <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i>Delete</button>
+
+                </form>
+                
+                <a class="btn btn-warning" href="/Groups/Edit/@grup.GroupId">Edit</a>
+                }
+            </div>
+            
+                                            
+            </div>
+
+        </div>
+
+    <br />
+
+    <br />
+}
+
+ <a class="btn btn-primary" href="/Groups/New/">New Group</a>
+
+
