@@ -1,1 +1,1 @@
-Online_school
+Website built using ASP.NET Core
