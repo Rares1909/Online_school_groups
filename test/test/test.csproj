@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.1" />
     <PackageReference Include="RazorEngine" Version="3.10.0" />
     <PackageReference Include="xunit" Version="2.6.6" />
+    <ProjectReference Include="../../Online_school/Online_school.csproj" />
   </ItemGroup>
 
 </Project>
